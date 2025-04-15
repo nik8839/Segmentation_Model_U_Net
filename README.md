@@ -1,90 +1,54 @@
-# Facial Segmentation with CelebAMask-HQ
+# 🎯 Lightweight Facial Segmentation Web App
 
-This project implements a lightweight facial segmentation model that runs on CPU. It uses the CelebAMask-HQ dataset to train a model for segmenting facial features, specifically targeting eyes, eyebrows, nose, mouth, and lips.
+This project implements a **CPU-friendly facial segmentation system** that identifies key facial components such as eyes, eyebrows, nose, mouth, and lips. It uses a custom lightweight U-Net model and provides an intuitive web interface built with **React (frontend)** and **Flask (backend)**.
 
-## Dataset
+---
 
-The CelebAMask-HQ dataset includes:
+## 📂 Dataset: CelebAMask-HQ
 
-- High-quality face images (CelebA-HQ-img)
-- Mask annotations for 19 facial components (CelebAMask-HQ-mask-anno)
+We use the **CelebAMask-HQ** dataset, which offers high-quality facial images and pixel-level annotations for various facial parts.
 
-## Features
+### 🔹 Dataset Structure
 
-- Lightweight segmentation model designed to run on CPU
-- Trains on the CelebAMask-HQ dataset
-- Segments facial features with different color codes
-- Provides visualization of segmentation results
+Download and extract dataset from "https://github.com/switchablenorms/CelebAMask-HQ"
 
-## Model Architecture
+## 🧠 Model Architectures
 
-The project includes two model architectures:
+Two CPU-optimized PyTorch models are implemented:
 
-1. **LightweightUNet**: A simplified U-Net architecture with reduced parameters
-2. **LightweightSegmentationModel**: An even more efficient model using depthwise separable convolutions
+### 1. `LightweightUNet`
 
-## Requirements
+- U-Net structure with fewer filters
+- Maintains spatial precision with skip connections
+- Suitable for facial segmentation on low-resource systems
 
-Install the required packages using:
+### 2. `LightweightSegmentationModel`
+
+- Uses **depthwise separable convolutions**
+- Even fewer parameters than U-Net
+- Ideal for fast CPU inference
+
+---
+## 🚀 How to Run the Fullstack App
+
+You need to run both the backend and frontend from the `facial_segmentation_web/` directory.
+
+### 🔧 1. Backend Setup (Flask)
 
 ```bash
+cd facial_segmentation_web/backend
 pip install -r requirements.txt
+python app.py
+
+
 ```
 
-## Usage
-
-### Training
-
-To train the facial segmentation model:
+### 🔧 1. Frontend Setup (React)
 
 ```bash
-python face_segmentation.py
+cd facial_segmentation_web/frontend
+npm install
+npm start
 ```
 
-This will:
 
-1. Load the CelebAMask-HQ dataset
-2. Preprocess the images and mask annotations
-3. Train the lightweight segmentation model
-4. Save the trained model to `face_segmentation_model.pth`
-5. Evaluate the model and visualize results
-
-### Inference
-
-To segment a face image using the trained model:
-
-```bash
-python inference.py --image [path_to_image] --output [output_filename.png]
-```
-
-Arguments:
-
-- `--image`: Path to the input face image (required)
-- `--model`: Path to the trained model file (default: face_segmentation_model.pth)
-- `--output`: Path to save the output image (default: segmentation_result.png)
-
-## Color Coding
-
-The segmentation results are color-coded as follows:
-
-- Background: Black
-- Eyes: Red
-- Eyebrows: Green
-- Nose: Blue
-- Mouth: Yellow
-- Lips: Magenta
-
-## Implementation Details
-
-- The model is implemented in PyTorch
-- Input images are resized to 256x256 pixels
-- Mask annotations for different parts are combined into a single segmentation mask
-- The implementation uses depthwise separable convolutions for efficiency
-
-## Results
-
-After training, the model produces:
-
-- Segmentation masks where each pixel is labeled with its corresponding facial part
-- Visualization with color-coded facial features
-- Training loss curve saved as `training_loss.png`
